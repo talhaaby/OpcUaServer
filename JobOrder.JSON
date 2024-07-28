@@ -1,0 +1,72 @@
+﻿{ "Job Order": {
+
+    "ID": "4568724",
+
+    "Description": "A simple job order which uses pre-defined material master data",
+
+    "JobOrderParameters": [
+
+      {
+
+        "ID": "Item Expiration Date",
+
+        "Value": "2022-12-31T23:59:59+01:00"
+
+      },
+
+      {
+
+        "ID": "Printed Item Expiration Date",
+
+        "Value": "2022-12-31"
+
+      },
+
+      {
+
+        "ID": "ERP Order Number",
+
+        "Value": "TestOrderNo2"
+
+      },
+
+      {
+
+        "ID": "Param1",
+
+        "Value": "XXX"
+
+      },
+
+      {
+
+        "“ID”": null,
+        "Event Context": "’",
+
+        "“Subparameters”": [
+
+          {
+
+            "“ID”": "“OrderID”",
+            "uom": "L3OrderId",
+            "value": "IAmJustAnOrderID"
+
+          }
+
+        ]
+
+      }
+
+    ],
+
+    "MaterialRequirement": {
+
+      "MaterialDefinitionID": "A548646-5",
+
+      "Quantity": 500000
+
+    }
+
+  }
+
+}

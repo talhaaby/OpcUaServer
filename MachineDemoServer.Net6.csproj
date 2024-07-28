@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <Nullable>disable</Nullable>
+    <StartupObject></StartupObject>
+    <RootNamespace>UnifiedAutomation.MachineDemoServer</RootNamespace>
+    <AssemblyName>MachineDemoServer</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>..\..\obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <FileAlignment>512</FileAlignment>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Opc.Ua.Di.NodeSet2.xml" />
+    <EmbeddedResource Include="Opc.Ua.Machinery.NodeSet2.xml" />
+	<EmbeddedResource Include="opc.ua.isa95-jobcontrol.nodeSet2.xml" />
+	<EmbeddedResource Include="Opc.Ua.IA.NodeSet2.xml" />
+    <EmbeddedResource Include="Opc.Ua.Glass.NodeSet2.xml" />
+	<EmbeddedResource Include="Opc.Ua.Machinery.Jobs.Nodeset2.xml"/>
+    <EmbeddedResource Include="License\License.lic" />
+	<EmbeddedResource Include="machinedemoserver.xml" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Bin'">
+    <OutputPath>..\..\bin\</OutputPath>
+    <UseAppHost>false</UseAppHost>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UnifiedAutomation.UaBase" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaBase.BouncyCastle" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaBase.Json" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaServer" Version="4.0.0" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+</Project>

@@ -1,0 +1,4 @@
+Name: The fourty seconds standard procedure
+ProcessTime: 40000
+MinTemperature: 300
+MaxTemperature: 320
