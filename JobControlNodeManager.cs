@@ -35,38 +35,222 @@
 ** http://unifiedautomation.com/License/SLA/2.8/
 **
 ******************************************************************************/
-/*
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnifiedAutomation.UaBase;
+using UnifiedAutomation.UaServer;
+using UnifiedAutomation.MachineDemoServer.Models.Jobs;
 using System.Text;
 using System.Threading;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
-using UnifiedAutomation.UaBase;
-using UnifiedAutomation.UaServer;
-using static UnifiedAutomation.MachineDemoServer.JobData;
 
-namespace OpcUa.JobControl
+using System.ServiceModel;
+using Opc.Ua.Bindings;
+using OpcUa.Server;
+using Org.BouncyCastle.Asn1.Mozilla;
+using System.Linq.Expressions;
+using System.Reflection.Metadata;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml;
+using Opc.Server;
+
+
+
+
+
+
+
+namespace OpcUa.Server
 {
-    internal partial class JobControlManager : BaseNodeManager
+
+
+    public partial class ServerNodeManager : BaseNodeManager
     {
+
+        public ushort InstanceNamespaceIndex { get; set; }
+        public ushort TypeNamespaceIndex { get; set; }
+        public class SystemFunction
+        {
+            public string BrowseName;
+        }
+
+
+        public override void Startup()
+        {
+
+
+
+            try
+            {
+                base.Startup();
+                Console.WriteLine("Starting JobControl.");
+
+               
+
+                TypeNamespaceIndex = AddNamespaceUri(OpcUa.Server.Namespaces.ISA95JOBCONTROL_V2);
+                InstanceNamespaceIndex = AddNamespaceUri("http://opcfoundation.org/UA/ISA95-JOBCONTROL_V2/");
+                Console.WriteLine("Loading the Controller Model.");
+                ImportUaNodeset(Assembly.GetEntryAssembly(), "Opc.Ua.ISA95-JOBCONTROL_V2.NodeSet2.xml");
+
+
+                XmlParser parser = new XmlParser(this, InstanceNamespaceIndex); // Pass this instance and namespace
+                parser.ParseXmlFile("Opc.Ua.ISA95-JOBCONTROL_V2.NodeSet2.xml");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to stop JobControl " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Called when the node manager is stopped.
+        /// </summary>
+        public override void Shutdown()
+        {
+            try
+            {
+                Console.WriteLine("Stopping JobControl.");
+
+                // TBD 
+
+                base.Shutdown();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to stop JobControl " + e.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets the method dispatcher.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="methodHandle">The method handle.</param>
+        /// <returns></returns>
+        /// [Forward Method to Method Handler]
+        protected override CallMethodEventHandler GetMethodDispatcher(
+            RequestContext context,
+            MethodHandle methodHandle)
+        {
+            if (methodHandle.MethodData is SystemFunction)
+            {
+                return DispatchControllerMethod;
+            }
+
+            return null;
+        }
+
+        /// [Forward Method to Method Handler]
+
+        /// <summary>
+        /// Dispatches a method to the controller.
+        /// </summary>
+        /// [Implement Method]
+        private UnifiedAutomation.UaBase.StatusCode DispatchControllerMethod(
+            RequestContext context,
+            MethodHandle methodHandle,
+            IList<UnifiedAutomation.UaBase.Variant> inputArguments,
+            List<UnifiedAutomation.UaBase.StatusCode> inputArgumentResults,
+            List<UnifiedAutomation.UaBase.Variant> outputArguments)
+        {
+            SystemFunction data = methodHandle.MethodData as SystemFunction;
+
+            if (data != null)
+            {
+                
+                    if(data.BrowseName == "RequestJobResponseByJobOrderID")
+                        {
+                            return Test();
+                        }
+                    else if (data.BrowseName == "RequestJobResponseByJobOrderState")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "ReceiveJobResponse")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Abort")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Cancel")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Clear")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Pause")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Resume")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "RevokeStart")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Start")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Stop")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Store")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "StoreAndStart")
+                    {
+                        return Test();
+                    }
+                    else if (data.BrowseName == "Update")
+                    {
+                        return Test();
+                    }
+            }
+
+            return UnifiedAutomation.UaBase.StatusCodes.BadNotImplemented;
+            
+
+
+        }
+
+      
+        UnifiedAutomation.UaBase.StatusCode Test()
+
+        {
+            return new UnifiedAutomation.UaBase.StatusCode() ;
+        }
+
+
+
+
+
+
+
+
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>
-
-
-
-        // Method to populate a JobOrderNode with JSON data
-    
-
-
-        public JobControlManager(ServerManager server) : base(server)
+        internal ServerNodeManager(ServerManager server) : base(server)
         {
-
         }
         #endregion
 
@@ -84,173 +268,8 @@ namespace OpcUa.JobControl
         }
         #endregion
 
-        #region Overridden Methods
-        /// <summary>
-        /// Called when the node manager is started.
-        /// </summary>
-        public override void Startup()
-        {
-            try
-            {
-                Console.WriteLine("Starting JobControlManager.");
-        
-
-                DefaultNamespaceIndex = AddNamespaceUri("http://opcfoundation.org/UA/ISA95-JOBCONTROL_V2/");
-
-                Console.WriteLine("Loading the JobControlManager Model.");
-                ImportUaNodeset(Assembly.GetEntryAssembly(), "opc.ua.isa95-jobcontrol.nodeset2.xml");
-
-                // Load and populate Job Orders from JSON file
-               // LoadJobOrdersFromJson();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Failed to start JobControlManager: " + e.Message);
-            }
-        }
-        /// <summary>
-        /// Called when the node manager is stopped.
-        /// </summary>
-        public override void Shutdown()
-        {
-            try
-            {
-                Console.WriteLine("Stopping JobControlManager.");
-
-                // TBD
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Failed to stop JobControlManager " + e.Message);
-            }
-        }
-
-        #endregion
-
-        #region Private Methods
-        
-        #endregion
-        
-        #region Private Fields
-        #endregion
 
     }
+
 }
-*/
-using System;
-using System.Collections.Generic;
-using UnifiedAutomation.UaBase;
-using UnifiedAutomation.UaServer;
-using static UnifiedAutomation.MachineDemoServer.JobData;
-
-namespace OpcUa.JobControl
-{
-    internal partial class JobControlManager : 
-    {
-        private class Job
-        {
-            public string JobId { get; set; }
-            public JobStatusEnum Status { get; set; }
-            public Dictionary<string, Variant> Parameters { get; set; }
-        }
-
-        private Dictionary<string, Job> _activeJobs = new Dictionary<string, Job>();
-        private const string JobControlNamespaceUri = "http://opcfoundation.org/UA/ISA95-JOBCONTROL_V2/";
-
-        // JobStatusEnum (from the NodeSet)
-        private enum JobStatusEnum { Ready = 6, Active = 7, Complete = 8, Aborted = 23, Stopping = 24 }
-
-        // NodeIds from the NodeSet (replace with your actual NodeIds)
-        private NodeId JobControlTypeNodeId = new NodeId("JobControlType", 2); // NamespaceIndex 2 for ISA95
-        private NodeId ISA95JobOrderReceiverObjectTypeNodeId = new NodeId("ISA95JobOrderReceiverObjectType", 2);
-
-        // Constructor
-        public JobControlManager(ServerManager server) : base(server)
-        {
-        }
-
-        // ... (Dispose, Startup, Shutdown methods remain the same) ...
-
-        public override void OnRootNodeManagerStarted(RootNodeManager nodeManager)
-        {
-            base.OnRootNodeManagerStarted(nodeManager);
-
-            // Manually create the JobControlType and ISA95JobOrderReceiverObjectType objects
-            var jobControlType = new BaseObjectState(null);
-            jobControlType.NodeId = JobControlTypeNodeId;
-            jobControlType.BrowseName = new QualifiedName("JobControlType", 2);
-            jobControlType.DisplayName = new LocalizedText("JobControlType");
-            jobControlType.TypeDefinitionId = ObjectTypeIds.BaseObjectType;
-
-            var jobOrderReceiver = new BaseObjectState(jobControlType);
-            jobOrderReceiver.NodeId = ISA95JobOrderReceiverObjectTypeNodeId;
-            jobOrderReceiver.BrowseName = new QualifiedName("JobOrderReceiver", 2);
-            jobOrderReceiver.DisplayName = new LocalizedText("JobOrderReceiver");
-            jobOrderReceiver.TypeDefinitionId = ObjectTypeIds.BaseObjectType;
-
-            // Add references
-            jobControlType.AddReference(ReferenceTypeIds.HasComponent, true, jobOrderReceiver.NodeId);
-
-            // Add the objects to the server's address space
-            Server.AddRootNode(jobControlType);
-            Server.AddNode(jobOrderReceiver);
-
-            // Create and attach the methods
-            var startMethod = CreateMethod(jobOrderReceiver, "Start", Start_OnCall);
-            var stopMethod = CreateMethod(jobOrderReceiver, "Stop", Stop_OnCall);
-            var storeMethod = CreateMethod(jobOrderReceiver, "Store", Store_OnCall);
-            var storeAndStartMethod = CreateMethod(jobOrderReceiver, "StoreAndStart", StoreAndStart_OnCall);
-            var pauseMethod = CreateMethod(jobOrderReceiver, "Pause", Pause_OnCall);
-            var resumeMethod = CreateMethod(jobOrderReceiver, "Resume", Resume_OnCall);
-            var abortMethod = CreateMethod(jobOrderReceiver, "Abort", Abort_OnCall);
-            var cancelMethod = CreateMethod(jobOrderReceiver, "Cancel", Cancel_OnCall);
-            var clearMethod = CreateMethod(jobOrderReceiver, "Clear", Clear_OnCall);
-            var revokeStartMethod = CreateMethod(jobOrderReceiver, "RevokeStart", RevokeStart_OnCall);
-            var updateMethod = CreateMethod(jobOrderReceiver, "Update", Update_OnCall);
-        }
-
-        // Helper method to create a MethodNode
-        private Method CreateMethod(BaseObjectState parent, string browseName, EventHandler<MethodEventArgs> onCallHandler)
-        {
-            var method = new Method(parent, new NodeId(browseName, DefaultNamespaceIndex));
-            method.DisplayName = new LocalizedText(browseName);
-            method.OnCallMethod += onCallHandler;
-            AddPredefinedNode(SystemContext, method);
-            return method;
-        }
-
-        // ... (Method implementations) ...
-
-        // Example implementation for the Start method
-        private void Start_OnCall(object sender, MethodEventArgs e)
-        {
-            try
-            {
-                string jobId = (string)e.InputArguments[0].Value; // jobName input argument
-                LocalizedText comment = (LocalizedText)e.InputArguments[1].Value; // comment input argument
-
-                if (_activeJobs.ContainsKey(jobId))
-                {
-                    e.Error = StatusCodes.BadAlreadyExists; // Job already exists
-                    return;
-                }
-
-                // ... (Your job start logic) ...
-
-                // Set output arguments
-                e.OutputArguments[0] = new Variant(StatusCodes.Good);
-            }
-            catch (Exception ex)
-            {
-                e.Error = StatusCodes.BadUnexpectedError;
-                Console.WriteLine($"Error in Start_OnCall: {ex.Message}");
-            }
-        }
-
-        // ... (Implementations for other methods: Store, StoreAndStart, Stop, Pause, Resume, Abort, Cancel, Clear, RevokeStart, Update) ...
-    }
-}
-
-
-
 

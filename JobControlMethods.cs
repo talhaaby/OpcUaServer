@@ -27,7 +27,7 @@
 ** PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the SLA for specific
 ** language governing rights and limitations under the SLA.
 **
-** Project: .NET OPC UA SDK information model for namespace http://unified-automation.com/MachineDemoServer/
+** Project: .NET OPC UA SDK information model for namespace http://opcfoundation.org/UA/DI/
 **
 ** Description: OPC Unified Architecture Software Development Kit.
 **
@@ -36,38 +36,51 @@
 **
 ******************************************************************************/
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnifiedAutomation.MachineDemoServer.Models.Jobs;
-using UnifiedAutomation.MachineDemoServer.Models.Jobs.UnifiedAutomation.MachineDemoServer;
+using System.Xml;
+using UnifiedAutomation.UaBase;
 using UnifiedAutomation.UaServer;
 
-namespace UnifiedAutomation.MachineDemoServer
+namespace OpcUa.Server
 {
-    internal class TestServerManager : ServerManager
+    public partial class JobControlModel : FiniteStateMachineModel
     {
-        public TestServerManager()
+        public IJobControlMethods JobControlMethods { get; private set; } // Encapsulation
+
+        // Constructor Injection
+        public JobControlModel(IJobControlMethods jobControlMethods)
         {
+            JobControlMethods = jobControlMethods;
         }
 
-        protected override void OnRootNodeManagerStarted(RootNodeManager nodeManager)
+        public StatusCode Start(RequestContext context)
         {
-            UnifiedAutomation.UaServer.BaseNodeManager nm;
-            nm = new OpcUa.DI.DINodeManager(this);
-            nm.Startup();
-            nm = new OpcUa.IA.IANodeManager(this);
-            nm.Startup();
-            nm = new OpcUa.Glass.GlassNodeManager(this);
-            nm.Startup();
-            nm = new OpcUa.Server.ServerNodeManager(this);
-            nm.Startup();
-            nm = new UnifiedAutomation.MachineDemoServer.MachineDemoServerNodeManager(this);
-            nm.Startup();
+            List<Variant> inputArguments = new List<Variant>();
+            List<Variant> outputArguments = new List<Variant>();
 
-
-
+            return JobControlMethods.Start(context, this, inputArguments, outputArguments);
         }
+
+        // ... other methods (Stop, Abort, etc.) as needed
+    }
+
+    /// <summary>
+    /// Interface for methods implemented on the JobControlModel object.
+    /// </summary>
+    public interface IJobControlMethods
+    {
+        StatusCode Start(
+             RequestContext context,
+             JobControlModel model,
+             IList<Variant> inputArguments,
+             List<Variant> outputArguments
+         );
+
+        // Add other method signatures for Stop, Abort, etc.
     }
 }
+

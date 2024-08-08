@@ -12,14 +12,12 @@ MODELS += ($MODELS)/Opc.Ua.NodeSet2.ua \
     Opc.Ua.Machinery.NodeSet2.ua \
     Opc.Ua.IA.NodeSet2.ua \
     Opc.Ua.Glass.NodeSet2.ua \
-    Opc.Ua.JobControl.uanodes \
     machinedemoserver.ua
 
 VARIABLES+= ($MODELS)/Opc.Ua.Di.NodeSet2.ua: Namespace=DI; Organization=OpcUa; \
     Opc.Ua.Machinery.NodeSet2.ua: Namespace=Machinery; Organization=OpcUa; \
     Opc.Ua.IA.NodeSet2.ua: Namespace=IA; Organization=OpcUa; \
     Opc.Ua.Glass.NodeSet2.ua: Namespace=Glass; Organization=OpcUa; \
-    Opc.Ua.JobControl.uanodes: NameSpace=JobControl; Organization=UnifiedAutomation;
     machinedemoserver.ua: Namespace=MachineDemoServer; Organization=UnifiedAutomation; 
 
 COLORS = ($MODELS)/Opc.Ua.NodeSet2.ua: #0000ff\
@@ -27,7 +25,6 @@ COLORS = ($MODELS)/Opc.Ua.NodeSet2.ua: #0000ff\
     Opc.Ua.Machinery.NodeSet2.ua: #8b008b\
     Opc.Ua.IA.NodeSet2.ua: #daa520\
     Opc.Ua.Glass.NodeSet2.ua: #006400\
-    Opc.Ua.JobControl.uanodes: #006400\
     machinedemoserver.ua: #0000ff
 
 PROJECTVARIABLES += GenerateDefaultApplication = true \
@@ -42,13 +39,11 @@ GENERATE += ($MODELS)/Opc.Ua.Di.NodeSet2.ua \
     Opc.Ua.Machinery.NodeSet2.ua \
     Opc.Ua.IA.NodeSet2.ua \
     Opc.Ua.Glass.NodeSet2.ua \
-    Opc.Ua.JobControl.uanodes \
     machinedemoserver.ua
 
 LOCKEDMODELS += ($MODELS)/Opc.Ua.Di.NodeSet2.ua \
     Opc.Ua.Machinery.NodeSet2.ua \
     Opc.Ua.IA.NodeSet2.ua \
-    Opc.Ua.JobControl.uanodes \
     Opc.Ua.Glass.NodeSet2.ua
 
 NODEACCESSINFOROLES += Administrator \

@@ -29,7 +29,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "D:\\ZOpcUa\\UaSdkNetBundlePubSubEval\\NuGetPackages": {},
+          "D:\\OpcServer\\OPCServer\\NugetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,6 +53,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "OPCFoundation.NetStandard.Opc.Ua.Core": {
+              "target": "Package",
+              "version": "[1.5.374.78, )"
+            },
             "UnifiedAutomation.UaBase": {
               "target": "Package",
               "version": "[4.0.0, )"
@@ -62,6 +66,26 @@
               "version": "[4.0.0, )"
             },
             "UnifiedAutomation.UaBase.Json": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "UnifiedAutomation.UaBase.Windows": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "UnifiedAutomation.UaClient": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "UnifiedAutomation.UaClient.Controls": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "UnifiedAutomation.UaPubSub": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "UnifiedAutomation.UaPubSub.Mqtt": {
               "target": "Package",
               "version": "[4.0.0, )"
             },

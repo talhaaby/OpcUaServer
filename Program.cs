@@ -63,6 +63,7 @@ namespace UnifiedAutomation.MachineDemoServer
                 // Start the server.
                 Server = new TestServerManager();
 
+
                 ApplicationInstanceBase.Default.AutoCreateCertificate = true;
 
 #if NETFRAMEWORK

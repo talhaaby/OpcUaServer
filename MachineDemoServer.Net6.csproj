@@ -19,12 +19,11 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Opc.Ua.Di.NodeSet2.xml" />
-    <EmbeddedResource Include="Opc.Ua.Machinery.NodeSet2.xml" />
-	<EmbeddedResource Include="opc.ua.isa95-jobcontrol.nodeSet2.xml" />
 	<EmbeddedResource Include="Opc.Ua.IA.NodeSet2.xml" />
     <EmbeddedResource Include="Opc.Ua.Glass.NodeSet2.xml" />
-	<EmbeddedResource Include="Opc.Ua.Machinery.Jobs.Nodeset2.xml"/>
-    <EmbeddedResource Include="License\License.lic" />
+	  <EmbeddedResource Include="Opc.Ua.ISA95-JOBCONTROL_V2.NodeSet2.xml" />
+	  <EmbeddedResource Include="License\License.lic" />
+	  <EmbeddedResource Include="SystemConfiguration.xml" />
 	<EmbeddedResource Include="machinedemoserver.xml" />
   </ItemGroup>
 
@@ -35,9 +34,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.5.374.78" />
     <PackageReference Include="UnifiedAutomation.UaBase" Version="4.0.0" />
     <PackageReference Include="UnifiedAutomation.UaBase.BouncyCastle" Version="4.0.0" />
     <PackageReference Include="UnifiedAutomation.UaBase.Json" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaBase.Windows" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaClient" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaClient.Controls" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaPubSub" Version="4.0.0" />
+    <PackageReference Include="UnifiedAutomation.UaPubSub.Mqtt" Version="4.0.0" />
     <PackageReference Include="UnifiedAutomation.UaServer" Version="4.0.0" />
   </ItemGroup>
 

@@ -47,13 +47,13 @@ using UnifiedAutomation.UaBase;
 using UnifiedAutomation.UaServer;
 namespace OpcUa.Machinery
 {
-    internal partial class MachineryNodeManager : BaseNodeManager
+    internal partial class MachineryExamplesManager : BaseNodeManager
     {
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>
-        public MachineryNodeManager(ServerManager server) : base(server)
+        public MachineryExamplesManager(ServerManager server) : base(server)
         {
         }
         #endregion
@@ -82,15 +82,10 @@ namespace OpcUa.Machinery
             {
                 Console.WriteLine("Starting MachineryNodeManager.");
                 
-                DefaultNamespaceIndex = AddNamespaceUri("http://opcfoundation.org/UA/Machinery/");
+                DefaultNamespaceIndex = AddNamespaceUri("http://opcfoundation.org/UA/Machinery_Example/");
 
                 Console.WriteLine("Loading the Machinery Model.");
-                ImportUaNodeset(Assembly.GetEntryAssembly(), "Opc.Ua.Machinery.NodeSet2.xml");
-
-                Console.WriteLine("Starting Machinery Jobs.");
-                DefaultNamespaceIndex = AddNamespaceUri("http://opcfoundation.org/UA/Machinery/Jobs/");
-                Console.WriteLine("Loading the Machinery Jobs Model.");
-                ImportUaNodeset(Assembly.GetEntryAssembly(), "Opc.Ua.Machinery.Jobs.Nodeset2.xml");
+                ImportUaNodeset(Assembly.GetEntryAssembly(), "Opc.Ua.Machinery.Examples.NodeSet2.xml");
 
                 
             }
